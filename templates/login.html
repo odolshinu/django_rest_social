@@ -1,0 +1,14 @@
+{% if user and not user.is_anonymous %}
+  <a>Hello, {{ user.get_full_name }}!</a>
+  <br>
+  <a href="/logout">Logout</a>
+{% else %}
+  <a href="{% url 'social:begin' 'github' %}?next={{ request.path }}">Login with Github</a>
+  <form method="post">{% csrf_token %}
+  	<label>Username</label>
+  	<input type="text" name="username" />
+  	<label>Password</label>
+  	<input type="password" name="password" />
+  	<input type="submit" value="Submit" />
+  </form>
+{% endif %}
